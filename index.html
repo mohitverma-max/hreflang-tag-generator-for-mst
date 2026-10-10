@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hreflang Tag Generator</title>
+<meta name="description" content="Free hreflang tag generator from Mohit's SEO Training. Pick the language and country for each page version and get ready-to-paste hreflang tags.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one work sheet. A navy-to-teal title panel with a wireframe globe and the visitor's own hreflang tags pinned to it; then three numbered steps (versions table, fallback, code window), the checks and a call to action. */
+:root{
+  --bg:#e9f0f5; --glow-a:rgba(69,144,165,.22); --glow-b:rgba(35,56,111,.14);
+  --surface:#ffffff; --sunk:#f1f6f9;
+  --ink:#131d38; --muted:#55627c; --line:#d4deea;
+  --heading:#23386f; --brand-a:#23386f; --brand-mid:#2f5f8c; --brand-b:#4590a5; --brand-c:#a9dde6;
+  --on-brand:#ffffff; --on-brand-soft:rgba(255,255,255,.82); --on-brand-faint:rgba(255,255,255,.16); --on-brand-line:rgba(255,255,255,.26);
+  --pick-bg:#e3eff4; --pick-line:#4590a5;
+  --cta:#f6c445; --cta-ink:#1b2444;
+  --good:#1c7c54; --good-bg:#e2f4eb; --warn:#946008; --warn-bg:#fbf0d8; --bad:#b93a32; --bad-bg:#fbe6e4;
+  --code-bg:#101a33; --code-top:#0b1328; --code-ink:#e6eeff; --code-dim:#8fa3c8; --code-attr:#a9dde6; --code-val:#f6d27a; --code-line:rgba(255,255,255,.10);
+  --shadow:0 24px 60px -28px rgba(35,56,111,.55); --lift:0 10px 24px -14px rgba(35,56,111,.45);
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1220; --glow-a:rgba(69,144,165,.20); --glow-b:rgba(47,74,148,.24);
+    --surface:#141d33; --sunk:#0f172a;
+    --ink:#e8edf8; --muted:#9dabc6; --line:#2a3858;
+    --heading:#cfe0ff; --brand-a:#23386f; --brand-mid:#2f5f8c; --brand-b:#4590a5; --brand-c:#a9dde6;
+    --on-brand:#ffffff; --on-brand-soft:rgba(255,255,255,.82); --on-brand-faint:rgba(255,255,255,.14); --on-brand-line:rgba(255,255,255,.24);
+    --pick-bg:#1a3144; --pick-line:#62b6cb;
+    --cta:#f6c445; --cta-ink:#1b2444;
+    --good:#5fd09c; --good-bg:#133325; --warn:#f0bd5a; --warn-bg:#382b10; --bad:#ff8f86; --bad-bg:#3b1a18;
+    --code-bg:#0a1122; --code-top:#070d1b; --code-ink:#e6eeff; --code-dim:#8fa3c8; --code-attr:#a9dde6; --code-val:#f6d27a; --code-line:rgba(255,255,255,.10);
+    --shadow:0 24px 60px -28px rgba(0,0,0,.8); --lift:0 10px 24px -14px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1220; --glow-a:rgba(69,144,165,.20); --glow-b:rgba(47,74,148,.24);
+  --surface:#141d33; --sunk:#0f172a;
+  --ink:#e8edf8; --muted:#9dabc6; --line:#2a3858;
+  --heading:#cfe0ff; --brand-a:#23386f; --brand-mid:#2f5f8c; --brand-b:#4590a5; --brand-c:#a9dde6;
+  --on-brand:#ffffff; --on-brand-soft:rgba(255,255,255,.82); --on-brand-faint:rgba(255,255,255,.14); --on-brand-line:rgba(255,255,255,.24);
+  --pick-bg:#1a3144; --pick-line:#62b6cb;
+  --cta:#f6c445; --cta-ink:#1b2444;
+  --good:#5fd09c; --good-bg:#133325; --warn:#f0bd5a; --warn-bg:#382b10; --bad:#ff8f86; --bad-bg:#3b1a18;
+  --code-bg:#0a1122; --code-top:#070d1b; --code-ink:#e6eeff; --code-dim:#8fa3c8; --code-attr:#a9dde6; --code-val:#f6d27a; --code-line:rgba(255,255,255,.10);
+  --shadow:0 24px 60px -28px rgba(0,0,0,.8); --lift:0 10px 24px -14px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:
+    radial-gradient(900px 520px at 8% -8%, var(--glow-a), transparent 62%),
+    radial-gradient(820px 520px at 104% 6%, var(--glow-b), transparent 62%),
+    var(--bg);
+  color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;padding-inline:16px;padding-block:28px 36px;
+}
+.sheet{max-width:1000px;margin-inline:auto;background:var(--surface);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+p{margin:0}
+code,.mono{font-family:var(--mono)}
+p code,li code,label code{font-size:.86em;background:var(--sunk);border:1px solid var(--line);border-radius:6px;padding:.06em .38em;overflow-wrap:anywhere}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* ---- title panel ---- */
+.panel{position:relative;overflow:hidden;color:var(--on-brand);
+  background:linear-gradient(118deg,var(--brand-a) 0%,var(--brand-mid) 52%,var(--brand-b) 100%);
+  padding:clamp(26px,4.6vw,44px) clamp(18px,5vw,48px);
+  display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px 36px;align-items:center}
+.panel::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--on-brand-faint) 1.2px,transparent 1.6px);background-size:22px 22px;opacity:.6;pointer-events:none;
+  -webkit-mask-image:linear-gradient(100deg,#000 0%,transparent 55%);mask-image:linear-gradient(100deg,#000 0%,transparent 55%)}
+.panel::after{content:"";position:absolute;width:520px;height:520px;right:-150px;top:-170px;border-radius:50%;background:radial-gradient(circle,var(--brand-c),transparent 66%);opacity:.30;pointer-events:none}
+.panel > *{position:relative;z-index:1;min-width:0}
+.intro{display:flex;flex-direction:column;gap:16px}
+.pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-brand);background:var(--on-brand-faint);border:1px solid var(--on-brand-line);border-radius:999px;padding:6px 13px;margin:0}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--cta)}
+.panel h1{font-family:var(--display);font-weight:800;font-size:clamp(36px,6.6vw,60px);line-height:.98;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.panel h1 em{font-style:normal;color:var(--brand-c)}
+.panel .lede{max-width:52ch;color:var(--on-brand-soft);font-size:clamp(15.5px,2vw,17.5px)}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none}
+.stats li{display:flex;align-items:baseline;gap:7px;background:var(--on-brand-faint);border:1px solid var(--on-brand-line);border-radius:12px;padding:7px 13px;font-size:13.5px;color:var(--on-brand-soft)}
+.stats b{font-family:var(--display);font-weight:800;font-size:20px;color:var(--on-brand);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+
+/* the globe with the visitor's tags pinned to it */
+.globe{position:relative;width:320px;height:300px;justify-self:end}
+.globe svg{position:absolute;left:30px;top:20px;width:260px;height:260px}
+.globe svg *{fill:none;stroke:var(--on-brand-line);stroke-width:1.2}
+.globe svg .pin{fill:var(--brand-c);stroke:none}
+.pins{margin:0;padding:0;list-style:none}
+.pins li{position:absolute}
+.pins li:nth-child(1){left:0;top:26px}
+.pins li:nth-child(2){right:0;top:66px}
+.pins li:nth-child(3){left:14px;top:128px}
+.pins li:nth-child(4){right:6px;top:170px}
+.pins li:nth-child(5){left:44px;top:226px}
+.pins li:nth-child(6){right:40px;top:262px}
+.htag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--cta-ink);background:var(--on-brand);border-radius:8px 999px 999px 8px;padding:7px 14px 7px 10px;box-shadow:0 10px 22px -12px rgba(0,0,0,.55);white-space:nowrap}
+.htag::before{content:"";width:8px;height:8px;border-radius:50%;border:2px solid var(--brand-b);flex:none}
+.htag.xd{background:var(--cta)}
+.htag.xd::before{border-color:var(--cta-ink)}
+
+/* ---- sections ---- */
+.pad{padding:28px clamp(18px,5vw,48px) 32px;display:flex;flex-direction:column;gap:18px;border-top:1px solid var(--line)}
+.panel + .pad{border-top:0}
+.sechead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+h2.sec{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.015em;color:var(--heading);margin:0}
+.num{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:11px;font-family:var(--display);font-weight:800;font-size:18px;color:var(--on-brand);background:linear-gradient(135deg,var(--brand-a),var(--brand-b));box-shadow:var(--lift)}
+.sub{color:var(--muted);font-size:15px;max-width:68ch}
+.note{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;background:var(--warn-bg);color:var(--ink);border-radius:14px;padding:12px 16px;font-size:14.5px}
+.note b{color:var(--warn)}
+
+label,.lab{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+input[type=url],input[type=text],select,textarea{
+  width:100%;min-width:0;font:inherit;font-size:15.5px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:46px;
+}
+select{appearance:none;-webkit-appearance:none;padding-right:36px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 50%,calc(100% - 13px) 50%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+input.url,textarea{font-family:var(--mono);font-size:13.5px}
+textarea{display:block;resize:vertical;line-height:1.6;min-height:130px}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.75}
+input:hover,select:hover,textarea:hover{border-color:var(--pick-line)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,.btn:focus-visible,.seg button:focus-visible,.x:focus-visible,.linkish:focus-visible{outline:3px solid var(--pick-line);outline-offset:2px}
+input.bad{border-color:var(--bad);background:var(--bad-bg)}
+input.guess{border-style:dashed;border-color:var(--pick-line)}
+
+.autofill{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px 20px;border-radius:18px;padding:18px;
+  background:linear-gradient(135deg,var(--pick-bg),var(--sunk));border:1px solid var(--line)}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+.seg button{font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:0;border-radius:9px;padding:8px 11px;min-height:38px;cursor:pointer;flex:1 1 auto;white-space:nowrap}
+.seg button[aria-pressed=true]{background:linear-gradient(100deg,var(--brand-a),var(--brand-b));color:var(--on-brand);box-shadow:var(--lift)}
+.eg{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:8px;overflow-wrap:anywhere}
+
+/* ---- versions table ---- */
+.colhead,.ver{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(0,1.15fr) minmax(0,1.75fr) 118px 40px;gap:10px 12px;align-items:center}
+.colhead{padding:0 12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.vers{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.ver{grid-template-areas:"n lang ctry url tag x";border:1px solid var(--line);border-radius:16px;padding:9px 12px;background:var(--surface)}
+.ver:hover,.ver:focus-within{border-color:var(--pick-line);box-shadow:var(--lift)}
+.ver:focus-within{position:relative;z-index:5}
+.ver > div{min-width:0}
+.ver .cb{grid-area:lang} .ver .cb-r{grid-area:ctry} .ver .urlbox{grid-area:url}
+.vhead{display:contents}
+.ver .n{grid-area:n;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--heading);background:var(--pick-bg);font-variant-numeric:tabular-nums}
+.ver .chipbox{grid-area:tag;display:flex}
+.ver .xbox{grid-area:x}
+.ver label{margin:0}
+.chip{display:inline-flex;align-items:center;gap:8px;max-width:100%;min-height:36px;font-family:var(--mono);font-weight:600;font-size:13.5px;color:var(--heading);background:var(--pick-bg);border-radius:8px 999px 999px 8px;padding:0 14px 0 10px;white-space:nowrap}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;border:2px solid var(--pick-line);flex:none}
+.chip.empty{color:var(--muted);background:var(--sunk)}
+.x{width:40px;height:40px;display:grid;place-items:center;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer}
+.x:hover{color:var(--bad);background:var(--bad-bg)}
+.x svg{width:16px;height:16px}
+.x:disabled{opacity:.3;cursor:not-allowed}
+.rowacts{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+
+.btn{font:inherit;font-weight:700;font-size:15px;border-radius:12px;padding:11px 18px;border:1px solid transparent;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-primary{background:linear-gradient(100deg,var(--brand-a),var(--brand-b));color:var(--on-brand);box-shadow:var(--lift)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:var(--surface);color:var(--heading);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--pick-line)}
+.btn-ghost[aria-expanded=true]{background:var(--pick-bg);border-color:var(--pick-line)}
+.btn-cta{background:var(--cta);color:var(--cta-ink);font-size:16px;padding:13px 22px;box-shadow:0 14px 28px -14px rgba(0,0,0,.6)}
+.btn-cta:focus-visible{outline-color:var(--on-brand)}
+.linkish{font:inherit;font-size:14.5px;font-weight:600;color:var(--muted);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.linkish:hover{color:var(--bad)}
+
+/* searchable pickers */
+.cb{position:relative}
+.cbi{text-overflow:ellipsis}
+.cblist{position:absolute;z-index:30;left:0;top:calc(100% + 6px);width:max(100%,260px);max-height:258px;overflow-y:auto;margin:0;padding:6px;list-style:none;background:var(--surface);border:1px solid var(--pick-line);border-radius:14px;box-shadow:var(--shadow)}
+.cblist li{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:9px 10px;border-radius:9px;font-size:14.5px;color:var(--ink);cursor:pointer}
+.cblist li .c{font-family:var(--mono);font-size:12px;color:var(--heading);background:var(--pick-bg);border-radius:6px;padding:1px 7px}
+.cblist li[aria-selected=true],.cblist li[data-i]:hover{background:var(--pick-bg)}
+.cblist li[aria-selected=true] .c,.cblist li[data-i]:hover .c{background:var(--surface)}
+.cblist li.sep{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:default;padding:10px 10px 4px}
+.cblist li.none{color:var(--muted);cursor:default}
+
+/* bulk add */
+.count{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:auto}
+.bulk{display:flex;flex-direction:column;gap:14px;background:var(--sunk);border:1px dashed var(--pick-line);border-radius:18px;padding:18px}
+.accepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.accepts li{font-size:14px;color:var(--muted);min-width:0;background:var(--surface);border-radius:12px;padding:12px 14px}
+.accepts b{display:block;color:var(--ink);font-size:14.5px}
+.filelab{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0;font-size:14px;font-weight:600;color:var(--muted)}
+.filelab input{font:inherit;font-size:13px;color:var(--muted);max-width:100%}
+#bulkReport:empty{display:none}
+
+.xd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px 18px;align-items:end}
+
+/* ---- code window ---- */
+.codewrap{background:var(--code-bg);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.codebar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 12px;background:var(--code-top);padding:10px 12px 0 12px}
+.tabs{display:flex;gap:2px;min-width:0}
+.tabs button{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--code-dim);background:transparent;border:0;border-radius:10px 10px 0 0;padding:11px 14px 12px;cursor:pointer;white-space:nowrap;border-top:2px solid transparent}
+.tabs button:hover{color:var(--code-ink)}
+.tabs button[aria-selected=true]{background:var(--code-bg);color:var(--code-ink);border-top-color:var(--brand-c)}
+.tabs button:focus-visible,.copy:focus-visible{outline:3px solid var(--brand-c);outline-offset:-3px}
+.codeacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-bottom:10px}
+.copy{font:inherit;font-weight:700;font-size:14px;color:var(--code-bg);background:var(--brand-c);border:0;border-radius:10px;padding:9px 16px;min-height:40px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.copy svg{width:15px;height:15px}
+.copy:focus-visible{outline-offset:2px}
+.copy:disabled{opacity:.45;cursor:not-allowed}
+.copy.ok{background:var(--cta)}
+.copy.alt{background:transparent;color:var(--code-ink);border:1px solid rgba(255,255,255,.28)}
+.codemeta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding:12px 16px 0}
+.codemeta > span:first-child{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--code-dim)}
+.ready{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--code-ink);border:1px solid var(--code-line);border-radius:999px;padding:4px 11px}
+.ready::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--code-dim)}
+.ready.good::before{background:#5fd09c} .ready.warn::before{background:#f0bd5a} .ready.bad::before{background:#ff8f86}
+pre{margin:0;padding:12px 16px 18px 6px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.75;color:var(--code-ink);tab-size:2;white-space:pre;counter-reset:ln}
+pre .l{display:block;counter-increment:ln}
+pre .l::before{content:counter(ln);display:inline-block;width:2.4em;margin-right:14px;text-align:right;color:var(--code-dim);opacity:.5;-webkit-user-select:none;user-select:none}
+pre .a{color:var(--code-attr)} pre .v{color:var(--code-val)} pre .d{color:var(--code-dim)}
+pre .hint{display:block;padding:6px 10px;color:var(--code-dim);white-space:normal}
+.where{font-size:14.5px;color:var(--muted);max-width:72ch}
+
+/* ---- checks ---- */
+.sum{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.sum li{display:inline-flex;align-items:baseline;gap:6px;font-size:13px;font-weight:600;border-radius:999px;padding:4px 12px;color:var(--muted);background:var(--sunk)}
+.sum b{font-family:var(--display);font-size:16px;font-variant-numeric:tabular-nums}
+.sum .bad.on{background:var(--bad-bg);color:var(--bad)} .sum .warn.on{background:var(--warn-bg);color:var(--warn)} .sum .tip.on{background:var(--pick-bg);color:var(--heading)}
+.checks{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.checks li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start;border-radius:14px;padding:12px 14px;font-size:15px}
+.checks .tag{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-top:1px;white-space:nowrap}
+.checks .bad{background:var(--bad-bg)}  .checks .bad .tag{color:var(--bad);border:1px solid var(--bad)}
+.checks .warn{background:var(--warn-bg)} .checks .warn .tag{color:var(--warn);border:1px solid var(--warn)}
+.checks .good{background:var(--good-bg)} .checks .good .tag{color:var(--good);border:1px solid var(--good)}
+.checks .tip{background:var(--pick-bg)} .checks .tip .tag{color:var(--heading);border:1px solid var(--pick-line)}
+.checks code{font-size:.86em;overflow-wrap:anywhere}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;position:relative;overflow:hidden;background:var(--sunk);border-radius:18px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--muted);min-width:0}
+.steps li::before{content:counter(s);position:absolute;right:10px;top:-18px;font-family:var(--display);font-weight:800;font-size:96px;line-height:1;color:var(--pick-bg);pointer-events:none}
+.steps li > *{position:relative}
+.steps b{color:var(--ink);font-size:16.5px;padding-right:48px}
+
+.cta{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;color:var(--on-brand);
+  background:linear-gradient(118deg,var(--brand-a) 0%,var(--brand-mid) 52%,var(--brand-b) 100%);padding:26px clamp(18px,5vw,48px)}
+.cta::after{content:"";position:absolute;width:360px;height:360px;right:-120px;bottom:-240px;border-radius:50%;background:radial-gradient(circle,var(--brand-c),transparent 66%);opacity:.3;pointer-events:none}
+.cta > *{position:relative;z-index:1;min-width:0}
+.cta h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.6vw,28px);line-height:1.1;letter-spacing:-.02em;margin:0 0 4px}
+.cta p{color:var(--on-brand-soft);font-size:15px;max-width:54ch}
+
+@media (max-width:860px){
+  .panel{grid-template-columns:minmax(0,1fr)}
+  .globe{width:auto;height:auto;justify-self:start}
+  .globe svg{display:none}
+  .pins{display:flex;flex-wrap:wrap;gap:8px}
+  .pins li{position:static}
+}
+@media (max-width:780px){
+  .autofill,.xd{grid-template-columns:minmax(0,1fr)}
+  .colhead{display:none}
+  .ver{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"head head" "lang ctry" "url url";align-items:end;padding:12px 14px 14px}
+  .vhead{grid-area:head;display:flex;align-items:center;gap:10px}
+  .ver .xbox{margin-left:auto}
+  .ver label.sr{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none;white-space:normal;margin-bottom:6px}
+  .steps,.accepts{grid-template-columns:minmax(0,1fr)}
+  .cb-r .cblist{left:auto;right:0}
+  .count{margin-left:0}
+}
+@media (max-width:340px){
+  .ver{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "lang" "ctry" "url"}
+  .cb-r .cblist{left:0;right:auto}
+}
+@media (prefers-reduced-motion:no-preference){
+  .btn,.x,.copy,.ver,.seg button,.tabs button{transition:transform .15s,border-color .15s,box-shadow .15s,background-color .15s,color .15s,opacity .15s}
+  .btn:not(:disabled):hover,.copy:not(:disabled):hover{transform:translateY(-1px)}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .ver.new{animation:rise .3s both}
+  .chip.pop{animation:pop .32s}
+  .cblist{animation:rise .14s both}
+  .pins li{animation:bob 5.5s ease-in-out infinite}
+  .pins li:nth-child(2){animation-delay:-1.1s} .pins li:nth-child(3){animation-delay:-2.3s} .pins li:nth-child(4){animation-delay:-3.2s} .pins li:nth-child(5){animation-delay:-4.1s} .pins li:nth-child(6){animation-delay:-.6s}
+}
+@media (max-width:860px){ .pins li{animation:none} }
+
+/* ---- v4 polish: no banner, a brand ribbon, clearer steps ---- */
+.sheet{border:1px solid var(--line)}
+.sheet::before{content:"";display:block;height:6px;background:linear-gradient(90deg,var(--brand-a),var(--brand-b) 55%,var(--brand-c) 80%,var(--cta))}
+.pad{padding-block:30px 34px}
+.pad:first-of-type{border-top:0;padding-top:34px}
+h2.sec{font-size:24px}
+.num{width:38px;height:38px;border-radius:12px;font-size:19px}
+.sub b{color:var(--heading)}
+.pad[aria-labelledby="h-xd"],.pad[aria-labelledby="h-how"]{background:linear-gradient(180deg,var(--sunk),var(--surface) 70%)}
+.autofill{border-radius:20px;padding:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.ver{border-radius:18px;padding:10px 14px;box-shadow:0 1px 2px rgba(35,56,111,.06)}
+.ver:hover{transform:translateY(-1px)}
+.ver:focus-within{border-color:var(--pick-line);box-shadow:0 0 0 3px var(--pick-bg),var(--lift)}
+.ver .n{width:32px;height:32px;color:var(--on-brand);background:linear-gradient(135deg,var(--brand-a),var(--brand-b));box-shadow:0 6px 12px -8px rgba(35,56,111,.8)}
+.chip{box-shadow:inset 0 0 0 1px var(--pick-line)}
+.chip.empty{box-shadow:inset 0 0 0 1px var(--line)}
+.colhead{padding-inline:14px}
+.colhead > span:first-child{visibility:hidden}
+.btn-primary{box-shadow:0 12px 22px -12px rgba(35,56,111,.8)}
+.btn-primary:not(:disabled):hover{box-shadow:0 16px 26px -12px rgba(35,56,111,.9)}
+input:focus-visible,select:focus-visible,textarea:focus-visible{border-color:var(--pick-line)}
+.codewrap{border:1px solid var(--code-line);box-shadow:0 30px 60px -30px rgba(16,26,51,.9),0 0 0 6px var(--pick-bg)}
+.codebar{background:linear-gradient(180deg,var(--code-top),var(--code-bg))}
+.codemeta{padding-bottom:10px;border-bottom:1px solid var(--code-line)}
+pre{padding-top:14px}
+pre .l:hover{background:rgba(255,255,255,.05)}
+.where{border-left:3px solid var(--pick-line);padding:2px 0 2px 14px}
+.checks li{border-left:4px solid transparent;border-radius:6px 14px 14px 6px}
+.checks .bad{border-left-color:var(--bad)} .checks .warn{border-left-color:var(--warn)} .checks .good{border-left-color:var(--good)} .checks .tip{border-left-color:var(--pick-line)}
+.sum li{box-shadow:inset 0 0 0 1px var(--line)}
+.steps li{border-top:3px solid var(--pick-line);border-radius:6px 6px 18px 18px;background:var(--surface);box-shadow:0 1px 0 var(--line),var(--lift)}
+.steps li::before{color:var(--pick-bg);opacity:.9}
+.cta{padding-block:32px}
+@media (max-width:560px){
+  h2.sec{font-size:21px;text-wrap:balance;align-items:flex-start}
+  .num{width:34px;height:34px;font-size:17px;margin-top:-2px}
+  .rowacts .btn{flex:1 1 100%}
+  .count{width:100%;text-align:center}
+  .chip{border-radius:8px 999px 999px 8px}
+  .tabs button{padding:11px 8px 12px;font-size:12px}
+}
+
+/* ---- v5: crisp, high-definition type and edges ---- */
+:root{--ink:#0a1230; --muted:#3f4d6b; --line:#bccadc; --heading:#14275c; --sunk:#edf2f8; --pick-bg:#dcecf3; --pick-line:#2f7f97; --good:#14663f; --warn:#7d4f00; --bad:#a32a22; --code-dim:#a3b4d6; --code-val:#ffd77f;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#f4f7ff; --muted:#b9c6e0; --line:#3b4c75; --heading:#e3edff; --sunk:#0e1730; --pick-bg:#183349; --pick-line:#6cc3d8; --code-dim:#b2c2e2;}}
+:root[data-theme="dark"]{--ink:#f4f7ff; --muted:#b9c6e0; --line:#3b4c75; --heading:#e3edff; --sunk:#0e1730; --pick-bg:#183349; --pick-line:#6cc3d8; --code-dim:#b2c2e2;}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-feature-settings:"kern","liga";font-size:16px}
+.sheet{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 0 0 1px var(--line),0 2px 4px rgba(10,18,48,.06),0 30px 70px -30px rgba(20,39,92,.55)}
+.sheet::before{height:7px}
+h2.sec{font-weight:800;font-size:25px;letter-spacing:-.028em;color:var(--heading)}
+.num{font-weight:800;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 8px 16px -8px rgba(20,39,92,.75)}
+.sub,.where{color:var(--muted);font-size:15.5px;line-height:1.6}
+.sub b{font-weight:800}
+label,.lab{font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--muted)}
+.colhead{font-weight:600;letter-spacing:.1em;color:var(--muted)}
+input[type=url],input[type=text],select,textarea{
+  border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-weight:500;
+  box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 1px 2px rgba(10,18,48,.06)}
+input.url,textarea{font-weight:500;font-size:13.5px}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.62}
+input:hover,select:hover,textarea:hover{border-color:var(--pick-line)}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:0;border-color:var(--pick-line);box-shadow:0 0 0 4px var(--pick-bg)}
+input.guess{border-style:dashed}
+.note{border:1px solid rgba(125,79,0,.22);font-weight:500}
+.note b{font-weight:800}
+.autofill{border:1.5px solid var(--line)}
+.seg{border:1.5px solid var(--line)}
+.seg button{font-weight:700;color:var(--muted)}
+.seg button[aria-pressed=true]{color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 8px 16px -8px rgba(20,39,92,.8)}
+.ver{border:1.5px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 2px 6px -2px rgba(10,18,48,.12)}
+.ver:hover{border-color:var(--pick-line)}
+.ver .n{font-weight:700;color:#fff}
+.chip{font-weight:700;font-size:13.5px;color:var(--heading);box-shadow:inset 0 0 0 1.5px var(--pick-line)}
+.chip::before{border-color:var(--pick-line)}
+.chip.empty{box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn{font-weight:800;letter-spacing:.005em}
+.btn-primary{color:#fff;background:linear-gradient(100deg,#1a2f66,#2c6f93 60%,#3c8aa2);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 14px 24px -12px rgba(20,39,92,.85)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--heading)}
+.btn-cta{font-weight:800;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 16px 30px -14px rgba(0,0,0,.65)}
+.linkish{font-weight:700}
+.count{font-weight:600}
+.x{border:1.5px solid transparent}
+.codewrap{box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 36px 70px -34px rgba(8,14,34,.95),0 0 0 6px var(--pick-bg)}
+pre{font-size:13.5px;line-height:1.8;font-weight:500}
+pre .a{color:#b8e8f1} pre .v{color:#ffd77f}
+.tabs button{font-weight:600;font-size:13px}
+.tabs button[aria-selected=true]{font-weight:700;color:#fff}
+.copy{font-weight:800;box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+.ready{font-weight:700;border-color:rgba(255,255,255,.2)}
+.checks li{font-size:15.5px;line-height:1.55;color:var(--ink);font-weight:500}
+.checks .tag{font-weight:700;border-width:1.5px}
+.sum li{font-weight:700;box-shadow:inset 0 0 0 1.5px var(--line)}
+.sum .bad.on{box-shadow:inset 0 0 0 1.5px var(--bad)} .sum .warn.on{box-shadow:inset 0 0 0 1.5px var(--warn)} .sum .tip.on{box-shadow:inset 0 0 0 1.5px var(--pick-line)}
+.steps li{border:1.5px solid var(--line);border-top:3px solid var(--pick-line);color:var(--muted);font-size:15px}
+.steps b{color:var(--ink);font-weight:800;letter-spacing:-.01em}
+.cta h2{font-weight:800;letter-spacing:-.03em}
+.cblist{border-width:1.5px}
+code,p code,li code{font-weight:500}
+@media (min-width:781px){
+  .colhead,.ver{grid-template-columns:30px minmax(0,.8fr) minmax(0,1.05fr) minmax(0,2fr) 104px 34px;gap:10px}
+  input.url{font-size:12.5px;letter-spacing:-.01em}
+}
+</style>
+<style>/* website build: let the host page show through around the tool card */ body{background:transparent}</style>
+</head>
+<body>
+
+<main class="sheet" id="app">
+  <h1 class="sr">Hreflang Tag Generator</h1>
+
+  <section class="pad" aria-labelledby="h-vers">
+    <div class="sechead">
+      <h2 class="sec" id="h-vers"><span class="num">1</span>Your page versions</h2>
+      <button type="button" class="linkish" id="clearBtn">Clear all and start fresh</button>
+    </div>
+    <p class="sub">Add one row for each version of your page. Pick the language and country it targets, or paste your URLs or existing tags with <b>Add many at once</b>.</p>
+    <p class="note" id="exampleNote"><span><b>Example data.</b> These rows use example.com so you can see how it works. Replace them with your own page.</span></p>
+
+    <div class="autofill">
+      <div>
+        <label for="mainUrl">Your main page URL (optional, fills the URLs below for you)</label>
+        <input class="url" type="url" id="mainUrl" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://www.yoursite.com/pricing/">
+      </div>
+      <div>
+        <span class="lab" id="lab-mode">How are your country versions set up?</span>
+        <div class="seg" role="group" aria-labelledby="lab-mode">
+          <button type="button" data-mode="sub" aria-pressed="true">Subfolders</button>
+          <button type="button" data-mode="host" aria-pressed="false">Subdomains</button>
+          <button type="button" data-mode="manual" aria-pressed="false">Type my own</button>
+        </div>
+        <p class="eg" id="modeEg"></p>
+      </div>
+    </div>
+
+    <div>
+      <div class="colhead" aria-hidden="true"><span></span><span>Language</span><span>Country</span><span>Page URL</span><span>Hreflang tag</span><span></span></div>
+      <ol class="vers" id="vers"></ol>
+    </div>
+    <div class="rowacts">
+      <button type="button" class="btn btn-primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add another version</button>
+      <button type="button" class="btn btn-ghost" id="bulkToggle" aria-expanded="false" aria-controls="bulk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Add many at once</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="bulk" id="bulk" hidden>
+      <div>
+        <label for="bulkText">Paste your pages, a spreadsheet, or your existing hreflang tags</label>
+        <textarea id="bulkText" rows="6" spellcheck="false" placeholder="https://www.yoursite.com/en-in/pricing/&#10;https://www.yoursite.com/en-us/pricing/&#10;https://www.yoursite.com/fr/pricing/"></textarea>
+      </div>
+      <ul class="accepts">
+        <li><b>A list of URLs</b>One per line. The tool reads the language and country from each URL where it can, such as <code>/en-in/</code> or <code>fr.yoursite.com</code>.</li>
+        <li><b>A spreadsheet</b>Copy three columns from Excel or Google Sheets: URL, language, country. A CSV works too.</li>
+        <li><b>Your existing tags</b>Paste the hreflang lines from your page source or sitemap to check and fix them.</li>
+      </ul>
+      <div class="rowacts">
+        <button type="button" class="btn btn-primary" id="bulkAdd">Add to my list</button>
+        <button type="button" class="btn btn-ghost" id="bulkReplace">Replace my list</button>
+        <label class="filelab" for="bulkFile">or upload a CSV or TXT file <input type="file" id="bulkFile" accept=".csv,.txt,.tsv,.xml,text/plain,text/csv"></label>
+      </div>
+    </div>
+    <ul class="checks" id="bulkReport" aria-live="polite"></ul>
+  </section>
+
+  <section class="pad" aria-labelledby="h-xd">
+    <h2 class="sec" id="h-xd"><span class="num">2</span>Fallback page (x-default)</h2>
+    <p class="sub">This is the page Google shows to visitors whose language or country matches none of your versions. Most sites use their global page or a language selector.</p>
+    <div class="xd">
+      <div>
+        <label for="xdSel">Which page is the fallback?</label>
+        <select id="xdSel"></select>
+      </div>
+      <div id="xdUrlBox" hidden>
+        <label for="xdUrl">Fallback page URL</label>
+        <input class="url" type="url" id="xdUrl" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://www.yoursite.com/">
+      </div>
+    </div>
+  </section>
+
+  <section class="pad" aria-labelledby="h-out">
+    <h2 class="sec" id="h-out"><span class="num">3</span>Your hreflang tags</h2>
+    <div class="codewrap">
+      <div class="codebar">
+        <div class="tabs" role="tablist" aria-label="Output format">
+          <button type="button" role="tab" id="tab-html" data-tab="html" aria-selected="true" aria-controls="out">HTML tags</button>
+          <button type="button" role="tab" id="tab-xml" data-tab="xml" aria-selected="false" aria-controls="out">XML sitemap</button>
+          <button type="button" role="tab" id="tab-http" data-tab="http" aria-selected="false" aria-controls="out">HTTP header</button>
+        </div>
+        <div class="codeacts">
+          <button type="button" class="copy" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg><span id="copyTxt">Copy code</span></button>
+          <button type="button" class="copy alt" id="dlBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span id="dlTxt">Download</span></button>
+        </div>
+      </div>
+      <div class="codemeta"><span id="outLabel">HTML</span><span class="ready" id="readyPill"></span></div>
+      <pre id="out" role="tabpanel" tabindex="0" aria-labelledby="tab-html"></pre>
+    </div>
+    <p class="where" id="where"></p>
+  </section>
+
+  <section class="pad" aria-labelledby="h-chk">
+    <div class="sechead">
+      <h2 class="sec" id="h-chk">Checks</h2>
+      <ul class="sum" id="chkSum" aria-hidden="true"></ul>
+    </div>
+    <ul class="checks" id="checks" aria-live="polite"></ul>
+  </section>
+
+  <section class="pad" aria-labelledby="h-how">
+    <h2 class="sec" id="h-how">How to add the tags to your site</h2>
+    <ol class="steps">
+      <li><b>Copy the code</b><span>Use the HTML tags for normal web pages. Pick one method only: HTML tags, XML sitemap or HTTP header.</span></li>
+      <li><b>Paste it on every version</b><span>The same block goes inside the <code>&lt;head&gt;</code> of each page listed above. On WordPress, use your SEO plugin or a header code plugin.</span></li>
+      <li><b>Check the return tags</b><span>Every version must list itself and all the others. If one page is missing the block, Google ignores the pair.</span></li>
+    </ol>
+  </section>
+
+  <section class="cta" aria-labelledby="h-cta">
+    <div>
+      <h2 id="h-cta">Taking your site to more countries?</h2>
+      <p>Hreflang is one piece of international SEO. Learn the rest step by step with Mohit's SEO Training.</p>
+    </div>
+    <a class="btn btn-cta" id="courseLink" href="https://mohitsseotraining.com/" target="_blank" rel="noopener">Explore the training</a>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var COURSE_URL = "https://mohitsseotraining.com/";
+  var CAN_DOWNLOAD = true;   // the website build switches this on
+  var MAX_ROWS = 200;
+  var DATA = {"langs":[["ab","Abkhazian"],["aa","Afar"],["af","Afrikaans"],["ak","Akan"],["tw","Akan"],["sq","Albanian"],["am","Amharic"],["ar","Arabic"],["an","Aragonese"],["hy","Armenian"],["as","Assamese"],["av","Avaric"],["ae","Avestan"],["ay","Aymara"],["az","Azerbaijani"],["bm","Bambara"],["bn","Bangla"],["ba","Bashkir"],["eu","Basque"],["be","Belarusian"],["bi","Bislama"],["bs","Bosnian"],["br","Breton"],["bg","Bulgarian"],["my","Burmese"],["ca","Catalan"],["ch","Chamorro"],["ce","Chechen"],["zh","Chinese"],["zh-Hans","Chinese (Simplified)"],["zh-Hant","Chinese (Traditional)"],["cu","Church Slavic"],["cv","Chuvash"],["kw","Cornish"],["co","Corsican"],["cr","Cree"],["hr","Croatian"],["cs","Czech"],["da","Danish"],["dv","Divehi"],["nl","Dutch"],["dz","Dzongkha"],["en","English"],["eo","Esperanto"],["et","Estonian"],["ee","Ewe"],["fo","Faroese"],["fj","Fijian"],["fi","Finnish"],["fr","French"],["ff","Fula"],["gl","Galician"],["lg","Ganda"],["ka","Georgian"],["de","German"],["el","Greek"],["gn","Guarani"],["gu","Gujarati"],["ht","Haitian Creole"],["ha","Hausa"],["he","Hebrew"],["hz","Herero"],["hi","Hindi"],["ho","Hiri Motu"],["hu","Hungarian"],["is","Icelandic"],["io","Ido"],["ig","Igbo"],["id","Indonesian"],["ia","Interlingua"],["ie","Interlingue"],["iu","Inuktitut"],["ik","Inupiaq"],["ga","Irish"],["it","Italian"],["ja","Japanese"],["jv","Javanese"],["kl","Kalaallisut"],["kn","Kannada"],["kr","Kanuri"],["ks","Kashmiri"],["kk","Kazakh"],["km","Khmer"],["ki","Kikuyu"],["rw","Kinyarwanda"],["kv","Komi"],["kg","Kongo"],["ko","Korean"],["kj","Kuanyama"],["ku","Kurdish"],["ky","Kyrgyz"],["lo","Lao"],["la","Latin"],["lv","Latvian"],["li","Limburgish"],["ln","Lingala"],["lt","Lithuanian"],["lu","Luba-Katanga"],["lb","Luxembourgish"],["mk","Macedonian"],["mg","Malagasy"],["ms","Malay"],["ml","Malayalam"],["mt","Maltese"],["gv","Manx"],["mr","Marathi"],["mh","Marshallese"],["mn","Mongolian"],["mi","Māori"],["na","Nauru"],["nv","Navajo"],["ng","Ndonga"],["ne","Nepali"],["nd","North Ndebele"],["se","Northern Sami"],["no","Norwegian"],["nb","Norwegian Bokmål"],["nn","Norwegian Nynorsk"],["ny","Nyanja"],["oc","Occitan"],["or","Odia"],["oj","Ojibwa"],["om","Oromo"],["os","Ossetic"],["pi","Pali"],["ps","Pashto"],["fa","Persian"],["pl","Polish"],["pt","Portuguese"],["pa","Punjabi"],["qu","Quechua"],["ro","Romanian"],["rm","Romansh"],["rn","Rundi"],["ru","Russian"],["sm","Samoan"],["sg","Sango"],["sa","Sanskrit"],["sc","Sardinian"],["gd","Scottish Gaelic"],["sr","Serbian"],["sh","Serbo-Croatian"],["sn","Shona"],["ii","Sichuan Yi"],["sd","Sindhi"],["si","Sinhala"],["sk","Slovak"],["sl","Slovenian"],["so","Somali"],["nr","South Ndebele"],["st","Southern Sotho"],["es","Spanish"],["su","Sundanese"],["sw","Swahili"],["ss","Swati"],["sv","Swedish"],["tl","Tagalog (Filipino)"],["ty","Tahitian"],["tg","Tajik"],["ta","Tamil"],["tt","Tatar"],["te","Telugu"],["th","Thai"],["bo","Tibetan"],["ti","Tigrinya"],["to","Tongan"],["ts","Tsonga"],["tn","Tswana"],["tr","Turkish"],["tk","Turkmen"],["uk","Ukrainian"],["ur","Urdu"],["ug","Uyghur"],["uz","Uzbek"],["ve","Venda"],["vi","Vietnamese"],["vo","Volapük"],["wa","Walloon"],["cy","Welsh"],["fy","Western Frisian"],["wo","Wolof"],["xh","Xhosa"],["yi","Yiddish"],["yo","Yoruba"],["za","Zhuang"],["zu","Zulu"]],"ctry":[["AF","Afghanistan"],["AX","Åland Islands"],["AL","Albania"],["DZ","Algeria"],["AS","American Samoa"],["AD","Andorra"],["AO","Angola"],["AI","Anguilla"],["AQ","Antarctica"],["AG","Antigua and Barbuda"],["AR","Argentina"],["AM","Armenia"],["AW","Aruba"],["AU","Australia"],["AT","Austria"],["AZ","Azerbaijan"],["BS","Bahamas"],["BH","Bahrain"],["BD","Bangladesh"],["BB","Barbados"],["BY","Belarus"],["BE","Belgium"],["BZ","Belize"],["BJ","Benin"],["BM","Bermuda"],["BT","Bhutan"],["BO","Bolivia"],["BA","Bosnia and Herzegovina"],["BW","Botswana"],["BV","Bouvet Island"],["BR","Brazil"],["IO","British Indian Ocean Territory"],["VG","British Virgin Islands"],["BN","Brunei"],["BG","Bulgaria"],["BF","Burkina Faso"],["BI","Burundi"],["KH","Cambodia"],["CM","Cameroon"],["CA","Canada"],["CV","Cape Verde"],["BQ","Caribbean Netherlands"],["KY","Cayman Islands"],["CF","Central African Republic"],["TD","Chad"],["CL","Chile"],["CN","China"],["CX","Christmas Island"],["CC","Cocos (Keeling) Islands"],["CO","Colombia"],["KM","Comoros"],["CG","Congo (Republic)"],["CK","Cook Islands"],["CR","Costa Rica"],["CI","Côte d'Ivoire"],["HR","Croatia"],["CU","Cuba"],["CW","Curaçao"],["CY","Cyprus"],["CZ","Czechia"],["DK","Denmark"],["DJ","Djibouti"],["DM","Dominica"],["DO","Dominican Republic"],["CD","DR Congo"],["EC","Ecuador"],["EG","Egypt"],["SV","El Salvador"],["GQ","Equatorial Guinea"],["ER","Eritrea"],["EE","Estonia"],["SZ","Eswatini"],["ET","Ethiopia"],["FK","Falkland Islands"],["FO","Faroe Islands"],["FJ","Fiji"],["FI","Finland"],["FR","France"],["GF","French Guiana"],["PF","French Polynesia"],["TF","French Southern Territories"],["GA","Gabon"],["GM","Gambia"],["GE","Georgia"],["DE","Germany"],["GH","Ghana"],["GI","Gibraltar"],["GR","Greece"],["GL","Greenland"],["GD","Grenada"],["GP","Guadeloupe"],["GU","Guam"],["GT","Guatemala"],["GG","Guernsey"],["GN","Guinea"],["GW","Guinea-Bissau"],["GY","Guyana"],["HT","Haiti"],["HM","Heard and McDonald Islands"],["HN","Honduras"],["HK","Hong Kong"],["HU","Hungary"],["IS","Iceland"],["IN","India"],["ID","Indonesia"],["IR","Iran"],["IQ","Iraq"],["IE","Ireland"],["IM","Isle of Man"],["IL","Israel"],["IT","Italy"],["JM","Jamaica"],["JP","Japan"],["JE","Jersey"],["JO","Jordan"],["KZ","Kazakhstan"],["KE","Kenya"],["KI","Kiribati"],["KW","Kuwait"],["KG","Kyrgyzstan"],["LA","Laos"],["LV","Latvia"],["LB","Lebanon"],["LS","Lesotho"],["LR","Liberia"],["LY","Libya"],["LI","Liechtenstein"],["LT","Lithuania"],["LU","Luxembourg"],["MO","Macao"],["MG","Madagascar"],["MW","Malawi"],["MY","Malaysia"],["MV","Maldives"],["ML","Mali"],["MT","Malta"],["MH","Marshall Islands"],["MQ","Martinique"],["MR","Mauritania"],["MU","Mauritius"],["YT","Mayotte"],["MX","Mexico"],["FM","Micronesia"],["MD","Moldova"],["MC","Monaco"],["MN","Mongolia"],["ME","Montenegro"],["MS","Montserrat"],["MA","Morocco"],["MZ","Mozambique"],["MM","Myanmar"],["NA","Namibia"],["NR","Nauru"],["NP","Nepal"],["NL","Netherlands"],["NC","New Caledonia"],["NZ","New Zealand"],["NI","Nicaragua"],["NE","Niger"],["NG","Nigeria"],["NU","Niue"],["NF","Norfolk Island"],["KP","North Korea"],["MK","North Macedonia"],["MP","Northern Mariana Islands"],["NO","Norway"],["OM","Oman"],["PK","Pakistan"],["PW","Palau"],["PS","Palestine"],["PA","Panama"],["PG","Papua New Guinea"],["PY","Paraguay"],["PE","Peru"],["PH","Philippines"],["PN","Pitcairn Islands"],["PL","Poland"],["PT","Portugal"],["PR","Puerto Rico"],["QA","Qatar"],["RE","Réunion"],["RO","Romania"],["RU","Russia"],["RW","Rwanda"],["KN","Saint Kitts and Nevis"],["VC","Saint Vincent and the Grenadines"],["WS","Samoa"],["SM","San Marino"],["ST","São Tomé and Príncipe"],["SA","Saudi Arabia"],["SN","Senegal"],["RS","Serbia"],["SC","Seychelles"],["SL","Sierra Leone"],["SG","Singapore"],["SX","Sint Maarten"],["SK","Slovakia"],["SI","Slovenia"],["SB","Solomon Islands"],["SO","Somalia"],["ZA","South Africa"],["GS","South Georgia and South Sandwich Islands"],["KR","South Korea"],["SS","South Sudan"],["ES","Spain"],["LK","Sri Lanka"],["BL","St. Barthélemy"],["SH","St. Helena"],["LC","St. Lucia"],["MF","St. Martin"],["PM","St. Pierre and Miquelon"],["SD","Sudan"],["SR","Suriname"],["SJ","Svalbard and Jan Mayen"],["SE","Sweden"],["CH","Switzerland"],["SY","Syria"],["TW","Taiwan"],["TJ","Tajikistan"],["TZ","Tanzania"],["TH","Thailand"],["TL","Timor-Leste"],["TG","Togo"],["TK","Tokelau"],["TO","Tonga"],["TT","Trinidad and Tobago"],["TN","Tunisia"],["TR","Türkiye"],["TM","Turkmenistan"],["TC","Turks and Caicos Islands"],["TV","Tuvalu"],["UM","U.S. Outlying Islands"],["VI","U.S. Virgin Islands"],["UG","Uganda"],["UA","Ukraine"],["AE","United Arab Emirates"],["GB","United Kingdom"],["US","United States"],["UY","Uruguay"],["UZ","Uzbekistan"],["VU","Vanuatu"],["VA","Vatican City"],["VE","Venezuela"],["VN","Vietnam"],["WF","Wallis and Futuna"],["EH","Western Sahara"],["YE","Yemen"],["ZM","Zambia"],["ZW","Zimbabwe"]]};
+  var POP_LANG = ["en","hi","es","fr","de","ar","pt","zh-Hans","zh-Hant","ja","ko","it","nl","ru","id","tr"];
+  var POP_CTRY = ["IN","US","GB","CA","AU","AE","SG","DE","FR","ES","BR","MX","JP","SA","ZA","NZ"];
+  // Everyday names people type that are not the official name.
+  var LANG_ALIAS = { mandarin:"zh", cantonese:"zh-Hant", "simplified chinese":"zh-Hans", "traditional chinese":"zh-Hant", farsi:"fa", filipino:"tl", tagalog:"tl", punjabi:"pa", odia:"or", bangla:"bn", flemish:"nl", castilian:"es", burmese:"my", gaelic:"gd" };
+  var CTRY_ALIAS = { uk:"GB", britain:"GB", "great britain":"GB", england:"GB", usa:"US", america:"US", "united states of america":"US", uae:"AE", emirates:"AE", holland:"NL", korea:"KR", "south korea":"KR", russia:"RU", turkey:"TR", vietnam:"VN", "czech republic":"CZ", ksa:"SA" };
+  // Codes people often write that are not valid hreflang values.
+  var LANG_FIX = { jp:"ja", cn:"zh", kr:"ko", dk:"da", cz:"cs", gr:"el", iw:"he", ua:"uk", sp:"es" };
+  var REGION_FIX = { UK:"GB" };
+  // Two-letter URL folders that nearly always mean a country, even when a language shares the code.
+  var COUNTRY_FIRST = "uk br ca in us au sg ae za nz mx jp cn kr ch se dk cz my sa ie be at hk tw ph pk bd lk np ng ke eg il kw qa om bh co cl pe ve gr si ee vn lu mt".split(" ");
+  var GENERIC_TLD = "com org net io co ai app dev me tv cc to ly gg fm info biz xyz online site shop store tech edu gov".split(" ");
+
+  var el = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
+  var LNAME = {}, CNAME = {}, LBY = {}, CBY = {};
+  DATA.langs.forEach(function(x){ LNAME[x[0]] = x[1]; LBY[x[1].toLowerCase()] = x[0]; });
+  DATA.ctry.forEach(function(x){ CNAME[x[0]] = x[1]; CBY[x[1].toLowerCase()] = x[0]; });
+
+  var seq = 0;
+  function row(lang, region, url, edited, auto){ return { id: "r" + (++seq), lang: lang || "", region: region || "", url: url || "", edited: !!edited, auto: !!auto }; }
+  function exampleState(){
+    seq = 0;
+    return { main: "https://www.example.com/pricing/", mode: "sub", xd: "main", xdUrl: "", tab: "html", example: true,
+      rows: [row("en","IN"), row("en","US"), row("en","GB"), row("hi","IN")] };
+  }
+  function blankState(){
+    seq = 0;
+    return { main: "", mode: "sub", xd: "none", xdUrl: "", tab: "html", example: false, rows: [row(), row()] };
+  }
+  var state = exampleState();
+
+  /* ---------- pure logic ---------- */
+  function parseUrl(s){
+    s = String(s || "").trim();
+    if(!s) return null;
+    try { var u = new URL(s); return (u.protocol === "http:" || u.protocol === "https:") && u.hostname.indexOf(".") > 0 ? u : null; } catch(e){ return null; }
+  }
+  function codeOf(r){ return r.lang ? r.lang + (r.region ? "-" + r.region : "") : ""; }
+  function labelOf(r){
+    if(!r.lang) return "this version";
+    return LNAME[r.lang] + (r.region ? " for " + CNAME[r.region] : "");
+  }
+  function suggest(r){
+    var u = parseUrl(state.main);
+    if(!u || state.mode === "manual" || !r.lang) return "";
+    var slug = codeOf(r).toLowerCase();
+    if(state.mode === "sub") return u.origin + "/" + slug + u.pathname + u.search;
+    return u.protocol + "//" + slug + "." + u.hostname.replace(/^www\./, "") + (u.port ? ":" + u.port : "") + u.pathname + u.search;
+  }
+  function urlOf(r){ return r.edited ? r.url.trim() : suggest(r); }
+  function xdHref(){
+    if(state.xd === "none") return "";
+    if(state.xd === "main") return state.main.trim();
+    if(state.xd === "custom") return state.xdUrl.trim();
+    var id = state.xd.slice(4), hit = state.rows.filter(function(r){ return r.id === id; })[0];
+    return hit ? urlOf(hit) : "";
+  }
+  // The list of valid tags plus every problem found.
+  function analyse(){
+    var tags = [], issues = [], seen = {}, guessed = 0, auto = 0, real = 0, byLang = {};
+    state.rows.forEach(function(r, i){
+      var n = i + 1, code = codeOf(r), href = urlOf(r), u = parseUrl(href);
+      r._bad = false; r._nolang = false;
+      if(!r.lang && !href && !r.region){ return; }
+      real++;
+      if(r.auto) auto++;
+      if(!r.lang){ r._nolang = true; issues.push(["bad", "Version " + n + " has no language. Choose a language, because a country on its own is not a valid hreflang value."]); return; }
+      if(!href){ r._bad = true; issues.push(["bad", "Add the page URL for " + esc(labelOf(r)) + " (<code>" + code + "</code>)."]); return; }
+      if(!u){ r._bad = true; issues.push(["bad", "The URL for <code>" + code + "</code> is not a full web address. Start it with <code>https://</code> and include the domain."]); return; }
+      if(seen[code]){ issues.push(["bad", "<code>" + code + "</code> is used twice (versions " + seen[code] + " and " + n + "). Each language and country pair can point to one page only. Remove one of them."]); return; }
+      seen[code] = n;
+      if(u.protocol === "http:") issues.push(["warn", "The URL for <code>" + code + "</code> uses <code>http://</code>. Use the <code>https://</code> address if your site has one, so it matches the page Google indexes."]);
+      if(u.hash) issues.push(["warn", "The URL for <code>" + code + "</code> has a <code>#</code> part. Remove it, because hreflang must point to a whole page."]);
+      if(!r.edited) guessed++;
+      var b = byLang[r.lang] || (byLang[r.lang] = { regions: 0, plain: false });
+      if(r.region) b.regions++; else b.plain = true;
+      tags.push({ code: code, href: u.href });
+    });
+    var xh = xdHref(), xu = parseUrl(xh);
+    if(state.xd !== "none"){
+      if(!xh) issues.push(["bad", "You chose a fallback page but its URL is empty. Add the URL or choose “No fallback page”."]);
+      else if(!xu) issues.push(["bad", "The fallback page URL is not a full web address. Start it with <code>https://</code>."]);
+      else tags.push({ code: "x-default", href: xu.href });
+    }
+    var langTags = tags.filter(function(t){ return t.code !== "x-default"; });
+    if(real && langTags.length === 1 && !issues.some(function(i){ return i[0] === "bad"; }))
+      issues.push(["warn", "You have one version only. Hreflang needs at least two versions of the same page to do anything."]);
+    if(langTags.length >= 2 && state.xd === "none")
+      issues.push(["warn", "No fallback page is set. Adding <code>x-default</code> is recommended, so visitors from other countries land on a sensible page."]);
+    if(guessed)
+      issues.push(["warn", guessed + (guessed === 1 ? " URL is" : " URLs are") + " filled in from your main page URL (dashed boxes). Open " + (guessed === 1 ? "it" : "each one") + " and confirm the page exists before you use the tags."]);
+    if(auto)
+      issues.push(["warn", auto + (auto === 1 ? " version had its" : " versions had their") + " language or country read from the URL (dashed boxes). Check " + (auto === 1 ? "it is" : "they are") + " right."]);
+    Object.keys(byLang).forEach(function(l){
+      if(byLang[l].regions >= 2 && !byLang[l].plain)
+        issues.push(["tip", "You target " + esc(LNAME[l]) + " in " + byLang[l].regions + " countries but have no general " + esc(LNAME[l]) + " version. Consider adding one with <code>" + l + "</code> and no country, so " + esc(LNAME[l]) + " speakers elsewhere get a page in their language."]);
+    });
+    return { tags: tags, issues: issues, langCount: langTags.length };
+  }
+  function buildHtml(tags){
+    return tags.map(function(t){ return '<link rel="alternate" hreflang="' + t.code + '" href="' + esc(t.href) + '" />'; }).join("\n");
+  }
+  function buildXml(tags){
+    var locs = [];
+    tags.forEach(function(t){ if(locs.indexOf(t.href) < 0) locs.push(t.href); });
+    var links = tags.map(function(t){ return '    <xhtml:link rel="alternate" hreflang="' + t.code + '" href="' + esc(t.href) + '"/>'; }).join("\n");
+    return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
+      locs.map(function(l){ return '  <url>\n    <loc>' + esc(l) + '</loc>\n' + links + '\n  </url>'; }).join("\n") + '\n</urlset>';
+  }
+  function buildHttp(tags){
+    return "Link: " + tags.map(function(t){ return '<' + t.href + '>; rel="alternate"; hreflang="' + t.code + '"'; }).join(",\n      ");
+  }
+  function paint(text){
+    return esc(text)
+      .replace(/(hreflang|href|rel|xmlns:xhtml|xmlns|version|encoding)=(&quot;[^&]*(?:&amp;[^&]*)*&quot;)/g, '<span class="a">$1</span>=<span class="v">$2</span>')
+      .replace(/(&lt;\/?)([\w:?]+)/g, '<span class="d">$1</span>$2');
+  }
+
+  /* ---------- reading pasted lists, spreadsheets and existing tags ---------- */
+  function findLang(s){
+    s = String(s || "").trim(); var k = s.toLowerCase();
+    if(!k) return "";
+    if(/^zh[-_]han[st]$/.test(k)) return k.slice(-1) === "s" ? "zh-Hans" : "zh-Hant";
+    return LNAME[k] ? k : LBY[k] || LANG_ALIAS[k] || LANG_FIX[k] || "";
+  }
+  function findCtry(s){
+    s = String(s || "").trim(); var k = s.toLowerCase(), up = s.toUpperCase();
+    if(!k) return "";
+    return CNAME[up] ? up : REGION_FIX[up] || CBY[k] || CTRY_ALIAS[k] || "";
+  }
+  // "en-in", "en_GB", "zh-Hant-TW" and common wrong forms such as "en-UK".
+  function parseCode(raw){
+    var s = String(raw || "").trim().replace(/_/g, "-");
+    if(!/^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,4}){0,2}$/.test(s)) return null;
+    var parts = s.split("-"), notes = [], lang = parts[0].toLowerCase(), region = "", i = 1;
+    if(LANG_FIX[lang]){ notes.push("<code>" + esc(s) + "</code>: <code>" + lang + "</code> is not a language code. Changed to <code>" + LANG_FIX[lang] + "</code> (" + esc(LNAME[LANG_FIX[lang]]) + ")."); lang = LANG_FIX[lang]; }
+    if(parts[i] && parts[i].length === 4){
+      if(lang === "zh" && /^han[st]$/i.test(parts[i])) lang = "zh-" + (/s$/i.test(parts[i]) ? "Hans" : "Hant");
+      else if(!/^(latn|cyrl|arab|deva)$/i.test(parts[i])) return null;
+      i++;
+    }
+    if(!LNAME[lang]) return null;
+    var badRegion = false;
+    if(parts[i]){
+      var r = parts[i].toUpperCase();
+      if(REGION_FIX[r]){ notes.push("<code>" + esc(s) + "</code>: the country code for the United Kingdom is <code>GB</code>, not <code>UK</code>. Corrected to <code>" + lang + "-GB</code>."); r = REGION_FIX[r]; }
+      if(CNAME[r]) region = r;
+      else { badRegion = true; notes.push("<code>" + esc(s) + "</code>: <code>" + esc(parts[i]) + "</code> is not a country code Google supports. Kept as <code>" + lang + "</code> for all countries."); }
+    }
+    return { lang: lang, region: region, notes: notes, badRegion: badRegion };
+  }
+  function detectFromUrl(u){
+    function read(seg){
+      seg = String(seg || "").toLowerCase();
+      if(!/^[a-z]{2}([-_][a-z]{2,4}){0,2}$/.test(seg)) return null;
+      if(seg.length === 2){
+        if(COUNTRY_FIRST.indexOf(seg) > -1){ var c = findCtry(seg); return c ? { lang: "", region: c } : null; }
+        if(LNAME[seg]) return { lang: seg, region: "" };
+        var c2 = findCtry(seg); return c2 ? { lang: "", region: c2 } : null;
+      }
+      var p = parseCode(seg); return p && !p.badRegion ? { lang: p.lang, region: p.region } : null;
+    }
+    var segs = u.pathname.split("/").filter(Boolean), hit = read(segs[0]) || null;
+    if(!hit){
+      var labels = u.hostname.toLowerCase().split(".");
+      if(labels.length > 2 && labels[0] !== "www" && labels[0] !== "m") hit = read(labels[0]);
+      if(!hit){
+        var tld = labels[labels.length - 1];
+        if(tld.length === 2 && GENERIC_TLD.indexOf(tld) < 0){ var c = findCtry(tld); if(c) hit = { lang: "", region: c }; }
+      }
+    }
+    return hit;
+  }
+  function parseBulk(text){
+    var out = { rows: [], xd: "", notes: [], read: 0, detected: 0, nolang: 0 }, seenNote = {}, seen = {};
+    function note(n){ if(!seenNote[n]){ seenNote[n] = 1; out.notes.push(n); } }
+    function add(url, lang, region, auto){
+      var key = lang + "|" + region + "|" + url;
+      if(seen[key]) return; seen[key] = 1;
+      out.rows.push({ url: url, lang: lang, region: region, auto: auto });
+      if(!lang) out.nolang++;
+      if(auto) out.detected++;
+    }
+    text = String(text || "");
+    if(/hreflang/i.test(text)){
+      // existing tags: HTML <link>, sitemap <xhtml:link> or an HTTP Link header
+      var found = [], m, reTag = /<(?:xhtml:)?link\b[^>]*>/gi, reHdr = /<([^<>\s]+)>\s*;([^,<]*)/g;
+      while((m = reTag.exec(text))){
+        var h = /hreflang\s*=\s*["']?([^"'\s>]+)/i.exec(m[0]), f = /href\s*=\s*["']([^"']+)["']/i.exec(m[0]);
+        if(h && f) found.push([h[1], f[1].replace(/&amp;/g, "&")]);
+      }
+      if(!found.length) while((m = reHdr.exec(text))){
+        var h2 = /hreflang\s*=\s*"?([\w-]+)/i.exec(m[2]);
+        if(h2) found.push([h2[1], m[1]]);
+      }
+      found.forEach(function(x){
+        out.read++;
+        if(x[0].toLowerCase() === "x-default"){ out.xd = x[1]; return; }
+        var p = parseCode(x[0]);
+        if(!p){ note("<code>" + esc(x[0]) + "</code> is not a valid hreflang value. The URL was added without a language, so choose one."); add(x[1], "", "", false); return; }
+        p.notes.forEach(note);
+        add(x[1], p.lang, p.region, false);
+      });
+      return out;
+    }
+    var fixedProto = 0;
+    text.split(/\r?\n/).forEach(function(line){
+      var cells = line.split(/[\t,;]/).map(function(c){ return c.trim().replace(/^["']|["']$/g, ""); }).filter(Boolean);
+      var ui = -1;
+      cells.forEach(function(c, i){ if(ui < 0 && (/^https?:\/\//i.test(c) || /^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(c))) ui = i; });
+      if(ui < 0) return;
+      var url = cells[ui], rest = cells.filter(function(c, i){ return i !== ui; }), lang = "", region = "", auto = false;
+      if(!/^https?:\/\//i.test(url)){ url = "https://" + url; fixedProto++; }
+      out.read++;
+      if(rest.length){
+        var p = /[-_]/.test(rest[0]) ? parseCode(rest[0]) : null;
+        if(p){ lang = p.lang; region = p.region || findCtry(rest[1]); p.notes.forEach(note); }
+        else {
+          lang = findLang(rest[0]);
+          if(LANG_FIX[rest[0].toLowerCase()]) note("<code>" + esc(rest[0]) + "</code> is not a language code. Changed to <code>" + lang + "</code>.");
+          if(rest[1] !== undefined){
+            region = findCtry(rest[1]);
+            if(rest[1].toUpperCase() === "UK") note("The country code for the United Kingdom is <code>GB</code>, not <code>UK</code>. Corrected.");
+            else if(!region) note("Country <code>" + esc(rest[1]) + "</code> was not recognised and was left out.");
+          } else if(!lang){ region = findCtry(rest[0]); }
+        }
+      }
+      if(!lang && !region){
+        var u = parseUrl(url), d = u ? detectFromUrl(u) : null;
+        if(d){ lang = d.lang; region = d.region; auto = true; }
+      }
+      add(url, lang, region, auto);
+    });
+    if(fixedProto) note("Added <code>https://</code> to " + fixedProto + (fixedProto === 1 ? " URL that had" : " URLs that had") + " no protocol.");
+    return out;
+  }
+  function applyBulk(parsed, replace){
+    if(state.example) replace = true;
+    var keep = replace ? [] : state.rows.filter(function(r){ return r.lang || r.region || urlOf(r); });
+    if(replace){ state.main = ""; state.xd = "none"; state.xdUrl = ""; el("mainUrl").value = ""; el("xdUrl").value = ""; }
+    var room = MAX_ROWS - keep.length, added = parsed.rows.slice(0, Math.max(0, room)).map(function(x){ return row(x.lang, x.region, x.url, true, x.auto); });
+    state.rows = keep.concat(added);
+    if(!state.rows.length) state.rows = [row(), row()];
+    if(parsed.xd){
+      var match = state.rows.filter(function(r){ return urlOf(r) === parsed.xd; })[0];
+      if(match) state.xd = "row:" + match.id; else { state.xd = "custom"; state.xdUrl = parsed.xd; el("xdUrl").value = parsed.xd; }
+    }
+    state.example = false;
+    return { added: added.length, dropped: parsed.rows.length - added.length };
+  }
+
+  var WHERE = {
+    html: "Paste this block inside the <code>&lt;head&gt;</code> of every version listed above. The block is the same on each page, and each page must include the line that points to itself.",
+    xml: "Add these <code>&lt;url&gt;</code> entries to your XML sitemap and submit it in Search Console. Use this method or the HTML tags, not both.",
+    http: "For PDFs and other files that have no <code>&lt;head&gt;</code>. Your server must send this header with every version of the file."
+  };
+  var LABEL = { html: "HTML · goes in <head>", xml: "XML · goes in sitemap.xml", http: "HTTP · server response header" };
+  var FILE = { html: ["hreflang-tags.txt", "text/plain"], xml: ["hreflang-sitemap.xml", "application/xml"], http: ["hreflang-header.txt", "text/plain"] };
+
+  /* ---------- searchable language and country pickers ---------- */
+  function cbText(f, code){ return code ? (f === "lang" ? LNAME : CNAME)[code] + " (" + code + ")" : ""; }
+  function cbMatches(f, q){
+    var list = f === "lang" ? DATA.langs : DATA.ctry, names = f === "lang" ? LNAME : CNAME, pop = f === "lang" ? POP_LANG : POP_CTRY, alias = f === "lang" ? LANG_ALIAS : CTRY_ALIAS;
+    q = String(q || "").trim().toLowerCase();
+    var out = [];
+    if(!q){
+      if(f === "region") out.push({ code: "", name: "Any country (language only)" });
+      out.push({ sep: "Most used" });
+      pop.forEach(function(c){ out.push({ code: c, name: names[c] }); });
+      out.push({ sep: "All, A to Z" });
+      list.forEach(function(x){ out.push({ code: x[0], name: x[1] }); });
+      return out;
+    }
+    var a = [], b = [], c = [], via = alias[q];
+    list.forEach(function(x){
+      var n = x[1].toLowerCase(), code = x[0].toLowerCase(), item = { code: x[0], name: x[1] };
+      if(code === q || n === q || x[0] === via) a.push(item);
+      else if(n.indexOf(q) === 0 || code.indexOf(q) === 0) b.push(item);
+      else if(n.indexOf(q) > 0) c.push(item);
+    });
+    return a.concat(b, c);
+  }
+  var cb = { input: null, items: [], active: -1, list: null };
+  function cbList(){
+    if(!cb.list){ cb.list = document.createElement("ul"); cb.list.className = "cblist"; cb.list.id = "cbList"; cb.list.setAttribute("role", "listbox"); cb.list.hidden = true;
+      cb.list.addEventListener("mousedown", function(e){
+        var li = e.target.closest("li[data-i]"); e.preventDefault();
+        if(li) cbPick(cb.items[Number(li.getAttribute("data-i"))].code);
+      });
+    }
+    return cb.list;
+  }
+  function cbRender(q){
+    var inp = cb.input, f = inp.getAttribute("data-f"), all = cbMatches(f, q), h = "";
+    cb.items = all.filter(function(x){ return !x.sep; });
+    cb.active = q && cb.items.length ? 0 : -1;
+    var i = 0;
+    all.forEach(function(x){
+      if(x.sep){ h += '<li class="sep" role="presentation">' + x.sep + '</li>'; return; }
+      h += '<li role="option" id="cbo-' + i + '" data-i="' + i + '" aria-selected="' + (i === cb.active) + '"><span>' + esc(x.name) + '</span>' + (x.code ? '<span class="c">' + x.code + '</span>' : '') + '</li>'; i++;
+    });
+    if(!cb.items.length) h = '<li class="none" role="presentation">No match. Try the English name or the two-letter code.</li>';
+    var list = cbList(); list.innerHTML = h; list.scrollTop = 0;
+    inp.setAttribute("aria-activedescendant", cb.active > -1 ? "cbo-" + cb.active : "");
+  }
+  function cbOpen(inp){
+    if(cb.input === inp && !cbList().hidden) return;
+    cbClose(); cb.input = inp;
+    var list = cbList(); inp.parentNode.appendChild(list); list.hidden = false;
+    inp.setAttribute("aria-expanded", "true"); inp.setAttribute("aria-controls", "cbList");
+    cbRender(""); try { inp.select(); } catch(e){}
+  }
+  function cbClose(){
+    if(cb.list) cb.list.hidden = true;
+    if(cb.input){ cb.input.setAttribute("aria-expanded", "false"); cb.input.removeAttribute("aria-activedescendant"); }
+    cb.input = null; cb.items = []; cb.active = -1;
+  }
+  function cbMove(d){
+    if(!cb.items.length) return;
+    cb.active = (cb.active + d + cb.items.length) % cb.items.length;
+    var lis = cb.list.querySelectorAll("li[data-i]");
+    for(var i = 0; i < lis.length; i++) lis[i].setAttribute("aria-selected", String(i === cb.active));
+    var li = lis[cb.active], top = li.offsetTop, bot = top + li.offsetHeight;
+    if(top < cb.list.scrollTop) cb.list.scrollTop = top - 6; else if(bot > cb.list.scrollTop + cb.list.clientHeight) cb.list.scrollTop = bot - cb.list.clientHeight + 6;
+    cb.input.setAttribute("aria-activedescendant", "cbo-" + cb.active);
+  }
+  function cbPick(code){
+    var inp = cb.input; if(!inp) return;
+    var r = byId(inp.closest(".ver").getAttribute("data-id")), f = inp.getAttribute("data-f");
+    r[f] = code; r.auto = false; inp.value = cbText(f, code);
+    cbClose(); touched(); refresh();
+  }
+  // Leaving the box: accept an exact name, code or alias, otherwise put the old value back.
+  function cbCommit(inp){
+    var r = byId(inp.closest(".ver").getAttribute("data-id")), f = inp.getAttribute("data-f"), t = inp.value.trim();
+    if(cb.input === inp) cbClose();
+    if(t === cbText(f, r[f])) return;
+    var code = t === "" ? "" : (f === "lang" ? findLang(t) : findCtry(t)), ok = t === "" || !!code;
+    if(!ok){ var m = cbMatches(f, t); if(m.length === 1){ code = m[0].code; ok = true; } }
+    if(ok && code !== r[f]){ r[f] = code; r.auto = false; touched(); }
+    inp.value = cbText(f, r[f]);
+    refresh();
+  }
+
+  /* ---------- rendering ---------- */
+  var current = "";
+  function renderRows(){
+    cbClose();
+    var h = "";
+    state.rows.forEach(function(r, i){
+      var n = i + 1;
+      h += '<li class="ver" data-id="' + r.id + '">' +
+        '<div class="vhead"><span class="n">' + n + '</span>' +
+        '<div class="chipbox"><span class="chip empty" id="chip-' + r.id + '"></span></div>' +
+        '<div class="xbox"><button type="button" class="x" data-del="' + r.id + '" aria-label="Remove version ' + n + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div>' +
+        '<div class="cb"><label class="sr" for="lang-' + r.id + '">Language</label><input type="text" class="cbi" id="lang-' + r.id + '" data-f="lang" role="combobox" aria-autocomplete="list" aria-expanded="false" autocomplete="off" spellcheck="false" placeholder="Language"></div>' +
+        '<div class="cb cb-r"><label class="sr" for="ctry-' + r.id + '">Country</label><input type="text" class="cbi" id="ctry-' + r.id + '" data-f="region" role="combobox" aria-autocomplete="list" aria-expanded="false" autocomplete="off" spellcheck="false" placeholder="Any country"></div>' +
+        '<div class="urlbox"><label class="sr" for="url-' + r.id + '">Page URL for this version</label><input class="url" type="url" id="url-' + r.id + '" data-f="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://www.yoursite.com/in/pricing/"></div>' +
+        '</li>';
+    });
+    el("vers").innerHTML = h;
+    var lis = el("vers").querySelectorAll(".ver"); if(lis.length > 1 && grew) lis[lis.length-1].classList.add("new");
+    grew = false;
+  }
+  var grew = false, heroKey = "";
+  function heroPins(res){
+    var codes = res.tags.map(function(t){ return t.code; }).filter(function(c, i, a){ return a.indexOf(c) === i; });
+    var use = codes.filter(function(c){ return c !== "x-default"; }).slice(0, 5);
+    if(codes.indexOf("x-default") > -1) use.push("x-default");
+    if(!use.length) use = ["en-IN", "hi-IN", "en-US", "fr-CA", "ja-JP"];
+    var key = use.join("|"); if(key === heroKey) return; heroKey = key;
+    if(!el("heroTags")) return;
+    el("heroTags").innerHTML = use.map(function(c){ return '<li class="htag' + (c === 'x-default' ? ' xd' : '') + '">' + esc(c) + '</li>'; }).join("");
+  }
+  function refresh(){
+    var res = analyse(), act = document.activeElement;
+    state.rows.forEach(function(r){
+      var inp = el("url-" + r.id), val = urlOf(r), li = el("lang-" + r.id), ci = el("ctry-" + r.id);
+      if(act !== inp && inp.value !== val) inp.value = val;
+      inp.classList.toggle("guess", !r.edited && !!val);
+      inp.classList.toggle("bad", !!r._bad);
+      if(act !== li) li.value = cbText("lang", r.lang);
+      if(act !== ci) ci.value = cbText("region", r.region);
+      li.classList.toggle("guess", r.auto && !!r.lang); ci.classList.toggle("guess", r.auto && !!r.region);
+      li.classList.toggle("bad", !!r._nolang);
+      var chip = el("chip-" + r.id), cc = codeOf(r);
+      if(chip.textContent !== (cc || "No language yet")){ chip.textContent = cc || "No language yet"; if(cc){ chip.classList.remove("pop"); void chip.offsetWidth; chip.classList.add("pop"); } }
+      chip.classList.toggle("empty", !cc);
+    });
+    var dels = el("vers").querySelectorAll(".x");
+    for(var i = 0; i < dels.length; i++) dels[i].disabled = state.rows.length <= 1;
+    el("addBtn").disabled = state.rows.length >= MAX_ROWS;
+    el("count").textContent = state.rows.length + (state.rows.length === 1 ? " version" : " versions") + (state.rows.length >= MAX_ROWS ? " (the limit)" : "");
+
+    // fallback choices
+    var sel = el("xdSel"), h = '<option value="none">No fallback page</option>';
+    if(parseUrl(state.main)) h += '<option value="main">My main page URL</option>';
+    state.rows.forEach(function(r){ if(r.lang) h += '<option value="row:' + r.id + '">The ' + esc(labelOf(r)) + ' version (' + codeOf(r) + ')</option>'; });
+    h += '<option value="custom">A different page (type the URL)</option>';
+    if(sel.innerHTML !== h){ sel.innerHTML = h; }
+    if(!sel.querySelector('option[value="' + state.xd + '"]')) state.xd = "none";
+    sel.value = state.xd;
+    el("xdUrlBox").hidden = state.xd !== "custom";
+
+    // helper text for the URL pattern
+    var m = parseUrl(state.main) || parseUrl("https://www.yoursite.com/pricing/"), host = m.hostname.replace(/^www\./, "");
+    el("modeEg").textContent = state.mode === "sub" ? "e.g. " + m.origin + "/en-in" + m.pathname
+      : state.mode === "host" ? "e.g. " + m.protocol + "//en-in." + host + m.pathname
+      : "The tool will not guess. Type or paste each URL.";
+    var segs = document.querySelectorAll(".seg button");
+    for(i = 0; i < segs.length; i++) segs[i].setAttribute("aria-pressed", String(segs[i].getAttribute("data-mode") === state.mode));
+
+    // output
+    var tabs = document.querySelectorAll(".tabs button");
+    for(i = 0; i < tabs.length; i++){ var on = tabs[i].getAttribute("data-tab") === state.tab; tabs[i].setAttribute("aria-selected", String(on)); tabs[i].tabIndex = on ? 0 : -1; }
+    el("out").setAttribute("aria-labelledby", "tab-" + state.tab);
+    el("outLabel").textContent = LABEL[state.tab];
+    el("where").innerHTML = WHERE[state.tab];
+    if(res.tags.length){
+      current = state.tab === "html" ? buildHtml(res.tags) : state.tab === "xml" ? buildXml(res.tags) : buildHttp(res.tags);
+      el("out").innerHTML = paint(current).split("\n").map(function(l){ return '<span class="l">' + (l || " ") + '</span>'; }).join("");
+    } else {
+      current = "";
+      el("out").innerHTML = '<span class="hint">Your tags appear here once you choose a language and add a page URL.</span>';
+    }
+    el("copyBtn").disabled = !current; el("dlBtn").disabled = !current;
+    el("copyTxt").textContent = "Copy code";
+    el("dlTxt").textContent = "Download " + FILE[state.tab][0];
+
+    // checks
+    var list = res.issues.slice(), problems = list.filter(function(i){ return i[0] !== "tip"; }).length;
+    if(!problems && res.langCount >= 2) list.unshift(["good", "No problems found. " + res.langCount + " versions" + (state.xd !== "none" ? " and a fallback page" : "") + " are ready to copy."]);
+    if(!list.length) list.push(["warn", "Choose a language and add a page URL for at least two versions."]);
+    var word = { bad: "Fix", warn: "Check", good: "Good", tip: "Tip" };
+    el("checks").innerHTML = list.map(function(i){ return '<li class="' + i[0] + '"><span class="tag">' + word[i[0]] + '</span><span>' + i[1] + '</span></li>'; }).join("");
+
+    var nb = list.filter(function(i){return i[0]==="bad";}).length, nw = list.filter(function(i){return i[0]==="warn";}).length, nt = list.filter(function(i){return i[0]==="tip";}).length;
+    el("chkSum").innerHTML = '<li class="bad' + (nb ? ' on' : '') + '"><b>' + nb + '</b> to fix</li><li class="warn' + (nw ? ' on' : '') + '"><b>' + nw + '</b> to check</li><li class="tip' + (nt ? ' on' : '') + '"><b>' + nt + '</b> tip' + (nt === 1 ? "" : "s") + '</li>';
+    var rp = el("readyPill");
+    if(!current){ rp.className = "ready"; rp.textContent = "Waiting for your pages"; }
+    else if(nb){ rp.className = "ready bad"; rp.textContent = nb + " to fix"; }
+    else if(nw){ rp.className = "ready warn"; rp.textContent = "Usable \u00b7 " + nw + " to check"; }
+    else { rp.className = "ready good"; rp.textContent = "Ready to copy"; }
+    heroPins(res);
+    el("exampleNote").hidden = !state.example;
+    save();
+    postHeight();
+  }
+  function byId(id){ return state.rows.filter(function(r){ return r.id === id; })[0]; }
+  function touched(){ state.example = false; }
+
+  /* ---------- events ---------- */
+  function bind(){
+    var vers = el("vers");
+    vers.addEventListener("focusin", function(e){ if(e.target.classList.contains("cbi")) cbOpen(e.target); });
+    vers.addEventListener("click", function(e){ if(e.target.classList.contains("cbi")) cbOpen(e.target); });
+    vers.addEventListener("focusout", function(e){ if(e.target.classList.contains("cbi")) cbCommit(e.target); });
+    vers.addEventListener("keydown", function(e){
+      if(!e.target.classList.contains("cbi")) return;
+      if(e.key === "ArrowDown" || e.key === "ArrowUp"){ if(cb.input !== e.target) cbOpen(e.target); cbMove(e.key === "ArrowDown" ? 1 : -1); e.preventDefault(); }
+      else if(e.key === "Enter"){ if(cb.input === e.target && cb.active > -1){ cbPick(cb.items[cb.active].code); } e.preventDefault(); }
+      else if(e.key === "Escape" && cb.input === e.target){ var r = byId(e.target.closest(".ver").getAttribute("data-id")), f = e.target.getAttribute("data-f"); e.target.value = cbText(f, r[f]); cbClose(); e.preventDefault(); }
+    });
+    vers.addEventListener("input", function(e){
+      var t = e.target;
+      if(t.classList.contains("cbi")){ if(cb.input !== t){ cbClose(); cb.input = t; t.parentNode.appendChild(cbList()); cbList().hidden = false; t.setAttribute("aria-expanded", "true"); } cbRender(t.value); return; }
+      if(t.getAttribute("data-f") !== "url") return;
+      var r = byId(t.closest(".ver").getAttribute("data-id"));
+      r.url = t.value; r.edited = t.value.trim() !== ""; touched(); refresh();
+    });
+    vers.addEventListener("click", function(e){
+      var b = e.target.closest("[data-del]");
+      if(!b || state.rows.length <= 1) return;
+      var id = b.getAttribute("data-del");
+      state.rows = state.rows.filter(function(r){ return r.id !== id; });
+      touched(); renderRows(); refresh();
+    });
+    el("addBtn").addEventListener("click", function(){
+      if(state.rows.length >= MAX_ROWS) return;
+      var r = row(); state.rows.push(r); touched(); grew = true; renderRows(); refresh();
+      el("lang-" + r.id).focus();
+    });
+    el("clearBtn").addEventListener("click", function(){
+      state = blankState(); el("mainUrl").value = ""; el("xdUrl").value = ""; el("bulkReport").innerHTML = ""; renderRows(); refresh(); el("mainUrl").focus();
+    });
+    el("mainUrl").addEventListener("input", function(e){ state.main = e.target.value; touched(); refresh(); });
+    document.querySelector(".seg").addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      state.mode = b.getAttribute("data-mode"); touched(); refresh();
+    });
+    el("xdSel").addEventListener("change", function(e){ state.xd = e.target.value; touched(); refresh(); if(state.xd === "custom") el("xdUrl").focus(); });
+    el("xdUrl").addEventListener("input", function(e){ state.xdUrl = e.target.value; touched(); refresh(); });
+
+    // bulk add
+    el("bulkToggle").addEventListener("click", function(){
+      var open = el("bulk").hidden; el("bulk").hidden = !open; el("bulkToggle").setAttribute("aria-expanded", String(open));
+      if(open) el("bulkText").focus(); postHeight();
+    });
+    el("bulkFile").addEventListener("change", function(e){
+      var f = e.target.files && e.target.files[0]; if(!f) return;
+      if(f.size > 1048576){ el("bulkReport").innerHTML = '<li class="bad"><span class="tag">Fix</span><span>That file is larger than 1 MB. Paste the URLs for one page set at a time.</span></li>'; postHeight(); return; }
+      var fr = new FileReader();
+      fr.onload = function(){ el("bulkText").value = String(fr.result || ""); el("bulkText").focus(); };
+      fr.readAsText(f);
+    });
+    function bulk(replace){
+      var parsed = parseBulk(el("bulkText").value), rep = [];
+      if(!parsed.rows.length && !parsed.xd){ el("bulkReport").innerHTML = '<li class="warn"><span class="tag">Check</span><span>No URLs found. Paste one URL per line, a spreadsheet with a URL column, or your existing hreflang tags.</span></li>'; postHeight(); return; }
+      var did = applyBulk(parsed, replace);
+      rep.push(["good", "Added " + did.added + (did.added === 1 ? " version" : " versions") + (parsed.xd ? " and the fallback page" : "") + "." + (parsed.detected ? " Language or country was read from the URL for " + parsed.detected + "." : "")]);
+      if(parsed.nolang) rep.push(["warn", parsed.nolang + (parsed.nolang === 1 ? " version needs" : " versions need") + " a language. " + (parsed.nolang === 1 ? "It is" : "They are") + " marked in red above."]);
+      if(did.dropped) rep.push(["warn", did.dropped + " more could not be added. The limit is " + MAX_ROWS + " versions for one page."]);
+      parsed.notes.forEach(function(n){ rep.push(["tip", n]); });
+      var word = { bad: "Fix", warn: "Check", good: "Done", tip: "Note" };
+      el("bulkReport").innerHTML = rep.map(function(i){ return '<li class="' + i[0] + '"><span class="tag">' + word[i[0]] + '</span><span>' + i[1] + '</span></li>'; }).join("");
+      el("bulkText").value = ""; el("bulkFile").value = "";
+      renderRows(); refresh();
+    }
+    el("bulkAdd").addEventListener("click", function(){ bulk(false); });
+    el("bulkReplace").addEventListener("click", function(){ bulk(true); });
+
+    var tablist = document.querySelector(".tabs");
+    tablist.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      state.tab = b.getAttribute("data-tab"); refresh();
+    });
+    tablist.addEventListener("keydown", function(e){
+      if(e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      var order = ["html","xml","http"], i = order.indexOf(state.tab) + (e.key === "ArrowRight" ? 1 : -1);
+      state.tab = order[(i + 3) % 3]; refresh(); el("tab-" + state.tab).focus(); e.preventDefault();
+    });
+    el("copyBtn").addEventListener("click", function(){
+      if(!current) return;
+      var done = function(){ el("copyTxt").textContent = "Copied"; el("copyBtn").classList.add("ok"); setTimeout(function(){ el("copyTxt").textContent = "Copy code"; el("copyBtn").classList.remove("ok"); }, 1800); };
+      var manual = function(){
+        try { var rng = document.createRange(); rng.selectNodeContents(el("out")); var s = window.getSelection(); s.removeAllRanges(); s.addRange(rng); } catch(e){}
+        el("copyTxt").textContent = "Selected. Press Ctrl+C or Cmd+C";
+      };
+      try { navigator.clipboard.writeText(current).then(done, manual); } catch(e){ manual(); }
+    });
+    el("dlBtn").hidden = !CAN_DOWNLOAD;
+    el("dlBtn").addEventListener("click", function(){
+      if(!current || !CAN_DOWNLOAD) return;
+      try {
+        var blob = new Blob([current + "\n"], { type: FILE[state.tab][1] + ";charset=utf-8" }), a = document.createElement("a"), url = URL.createObjectURL(blob);
+        a.href = url; a.download = FILE[state.tab][0]; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+      } catch(e){}
+    });
+    window.addEventListener("resize", postHeight);
+    window.addEventListener("load", postHeight);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(postHeight); }
+  }
+
+  /* ---------- keep the visitor's work ---------- */
+  var KEY = "mst-hreflang-v1";
+  function snapshot(){
+    return { main: state.main, mode: state.mode, xd: state.xd, xdUrl: state.xdUrl, tab: state.tab, example: state.example,
+      rows: state.rows.map(function(r){ return { id: r.id, lang: r.lang, region: r.region, url: r.url, edited: r.edited, auto: r.auto }; }) };
+  }
+  function save(){ if(state.example) return; try { localStorage.setItem(KEY, JSON.stringify(snapshot())); } catch(e){} }
+  function restore(saved){
+    if(!saved || !saved.rows || !saved.rows.length) return false;
+    var ok = saved.rows.every(function(r){ return (!r.lang || LNAME[r.lang]) && (!r.region || CNAME[r.region]); });
+    if(!ok) return false;
+    seq = 0;
+    var map = {};
+    state = { main: String(saved.main || ""), mode: /^(sub|host|manual)$/.test(saved.mode) ? saved.mode : "sub", xd: "none", xdUrl: String(saved.xdUrl || ""),
+      tab: /^(html|xml|http)$/.test(saved.tab) ? saved.tab : "html", example: !!saved.example,
+      rows: saved.rows.slice(0, MAX_ROWS).map(function(r){ var n = row(r.lang, r.region, String(r.url || ""), r.edited, r.auto); map[r.id] = n.id; return n; }) };
+    var xd = String(saved.xd || "none");
+    state.xd = xd.indexOf("row:") === 0 ? (map[xd.slice(4)] ? "row:" + map[xd.slice(4)] : "none") : xd;
+    return true;
+  }
+  // Lets the page that embeds this tool in an iframe match the iframe's height to the content.
+  function postHeight(){
+    try {
+      if(window.parent && window.parent !== window){
+        var h = Math.ceil(document.body.getBoundingClientRect().height);
+        window.parent.postMessage({ type: "mst-hreflang:height", height: h }, "*");
+      }
+    } catch(e){}
+  }
+
+  function start(hotData){
+    var loaded = restore(hotData && hotData.rows ? hotData : null);
+    if(!loaded){ try { loaded = restore(JSON.parse(localStorage.getItem(KEY) || "null")); } catch(e){} }
+    el("courseLink").href = COURSE_URL;
+    el("mainUrl").value = state.main; el("xdUrl").value = state.xdUrl;
+    renderRows(); bind(); refresh();
+  }
+  var hot = window.claude && window.claude.hot;
+  if(hot && hot.snapshot){ try { hot.snapshot(snapshot); } catch(e){} }
+  if(hot && hot.ready){ hot.ready(start); } else { start((hot && hot.data) || {}); }
+})();
+</script>
+</body>
+</html>
